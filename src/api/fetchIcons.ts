@@ -2,7 +2,7 @@ const data = {
   lockOpen: {
     icon: require("./../icons/lock_open.svg"),
     description: "Ikon som skal benyttes for a illustrere tilgangsstryring",
-    name: "Tilgangsstryring",
+    name: "Tilgangsstyring",
     link: "https://material.io/resources/icons/?icon=lock_open&style=baseline",
   },
   callSplit: {
@@ -21,7 +21,7 @@ const data = {
   },
 };
 
-export default function fetchIcons() {
+export default function fetchIcons(): Promise<Response> {
   return new Promise((resolve, _) => {
     setTimeout(() => {
       resolve(
