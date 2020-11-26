@@ -21,7 +21,8 @@
     "target": "es5",
     "skipLibCheck": true,
     "module": "esnext",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": "."
   },
   "include": ["./src/**/*.tsx", "./src/**/*.ts"]
 }
