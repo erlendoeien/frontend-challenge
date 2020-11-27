@@ -1,5 +1,7 @@
-import { Card, CardProps } from "@material-ui/core";
+import { Card, CardProps, makeStyles } from "@material-ui/core";
 import React, { FC } from "react";
+import CardMediaPlaceholder from "./CardMediaPlaceholder";
+import { MediaMaxWidth } from "./types";
 
 /**
  * Should be the card extenting regular card, but takes in media source,
@@ -9,26 +11,30 @@ import React, { FC } from "react";
  * Be able to alter margin/alignItem top or bottom
  */
 
-type MediaPosition = "top" | "right" | "bottom" | "left";
+// type MediaPosition = "top" | "right" | "bottom" | "left";
+type CardLayout = "vertical" | "horizontal";
 
 interface MediaCardProps extends CardProps {
-  mediaPosition?: MediaPosition;
+  mediaPosition?: CardLayout;
 }
 
-const MediaCard: FC<MediaCardProps> = ({
-  mediaPosition = "top",
-  style,
-  ...props
-}) => {
-  const mediaPlacement =
-    mediaPosition === "top" || mediaPosition === "bottom"
-      ? "column-reverse"
-      : "row";
+const MediaCard: FC<MediaCardProps> = ({ mediaPosition, style, ...props }) => {
+  let cardLayout: "row" | "column";
+  //Set flexOrder, others are in order of JSX-elements
+  if (mediaPosition === "vertical") {
+    cardLayout = "column";
+  } else {
+    cardLayout = "row";
+  }
+  // console.log(mediaPlacement);
+
+  // const classes = useStyles({ mediaPlacement: "" + mediaPlacement });
+
   return (
     <Card
       style={{
         display: "flex",
-        flexDirection: mediaPlacement,
+        flexDirection: cardLayout,
         ...style,
       }}
       {...props}

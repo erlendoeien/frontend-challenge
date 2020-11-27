@@ -1,11 +1,19 @@
-import { CardMedia, CardMediaProps } from "@material-ui/core";
+import { Box, CardMedia, CardMediaProps, makeStyles } from "@material-ui/core";
 import React from "react";
+import { MediaMaxWidth } from "./types";
 
-type MediaMaxWidth = "sm" | "md" | "lg";
 interface CardMediaPlaceholderProps {
   isLoading?: boolean;
   maxWidth?: MediaMaxWidth;
+  position?: "first" | "last";
 }
+
+const useStyles = makeStyles(() => ({
+  // style rule
+  root: (props: { mediaPlacement: string }) => ({
+    order: parseInt(props.mediaPlacement) || 0,
+  }),
+}));
 
 //TODO: Convert to theme like, as in the tutorial on MUI
 const setMediaWidth = (width: MediaMaxWidth) => {
@@ -26,17 +34,26 @@ function CardMediaPlaceholder<C extends React.ElementType>(
     isLoading = true,
     image,
     maxWidth = "md",
+    position,
     style,
     ...restProps
   } = props;
+  const mediaPlacement = position === "last" ? "1" : "0";
+  const classes = useStyles({ mediaPlacement });
+
   return (
     <CardMedia
+      classes={{ root: classes.root }}
       src={
         isLoading
           ? (require("../assets/images/placeholder.svg") as string)
           : image
       }
-      style={{ maxWidth: setMediaWidth(maxWidth), minWidth: 150, ...style }}
+      style={{
+        maxWidth: setMediaWidth(maxWidth),
+        minWidth: 150,
+        ...style,
+      }}
       {...restProps}
     />
   );

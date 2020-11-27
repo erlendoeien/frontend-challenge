@@ -21,16 +21,21 @@ const CardList: FC<CardListProps> = ({ data, ...props }) => {
   return (
     <List {...props}>
       {data.map(({ description, icon, link, name }) => (
-        <MediaCard key={`card_${name}`} style={{ margin: 20 }}>
+        <MediaCard
+          key={`card_${name}`}
+          mediaPosition="horizontal"
+          style={{ margin: 20 }}
+        >
           <CardMediaPlaceholder
             title={name}
             image={icon}
             component="img"
             isLoading={false}
             maxWidth="sm"
-            style={{
-              margin: "auto",
-            }}
+            position="first"
+            // style={{
+            //   margin: "auto",
+            // }}
           ></CardMediaPlaceholder>
           <CardContent>
             <Typography variant="h4" color="textPrimary">
