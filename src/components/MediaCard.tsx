@@ -1,7 +1,7 @@
-import { Card, CardProps, makeStyles } from "@material-ui/core";
+import { Card, CardProps, makeStyles, useMediaQuery } from "@material-ui/core";
 import React, { FC } from "react";
-import CardMediaPlaceholder from "./CardMediaPlaceholder";
-import { MediaMaxWidth } from "./types";
+import { mobileSize } from "../constants";
+import { FlexDirection } from "./types";
 
 /**
  * Should be the card extenting regular card, but takes in media source,
@@ -11,35 +11,24 @@ import { MediaMaxWidth } from "./types";
  * Be able to alter margin/alignItem top or bottom
  */
 
-// type MediaPosition = "top" | "right" | "bottom" | "left";
-type CardLayout = "vertical" | "horizontal";
-
 interface MediaCardProps extends CardProps {
-  mediaPosition?: CardLayout;
+  flexDirection?: FlexDirection;
 }
 
-const MediaCard: FC<MediaCardProps> = ({ mediaPosition, style, ...props }) => {
-  let cardLayout: "row" | "column";
-  //Set flexOrder, others are in order of JSX-elements
-  if (mediaPosition === "vertical") {
-    cardLayout = "column";
-  } else {
-    cardLayout = "row";
-  }
-  // console.log(mediaPlacement);
+const useStyles = makeStyles(() => ({
+  root: (props: { flexDirection: FlexDirection }) => ({
+    display: "flex",
+    flexDirection: props.flexDirection,
+  }),
+}));
 
-  // const classes = useStyles({ mediaPlacement: "" + mediaPlacement });
+const MediaCard: FC<MediaCardProps> = ({ flexDirection, ...props }) => {
+  const isMobile = useMediaQuery(`(max-width:${mobileSize}px)`);
+  const classes = useStyles({
+    flexDirection: isMobile ? "column" : flexDirection || "column",
+  });
 
-  return (
-    <Card
-      style={{
-        display: "flex",
-        flexDirection: cardLayout,
-        ...style,
-      }}
-      {...props}
-    ></Card>
-  );
+  return <Card classes={{ root: classes.root }} {...props} />;
 };
 
 export default MediaCard;

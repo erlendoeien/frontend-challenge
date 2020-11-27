@@ -7,16 +7,8 @@ interface CardMediaPlaceholderProps {
   maxWidth?: MediaMaxWidth;
   position?: "first" | "last";
 }
-
-const useStyles = makeStyles(() => ({
-  // style rule
-  root: (props: { mediaPlacement: string }) => ({
-    order: parseInt(props.mediaPlacement) || 0,
-  }),
-}));
-
 //TODO: Convert to theme like, as in the tutorial on MUI
-const setMediaWidth = (width: MediaMaxWidth) => {
+const convertWidth = (width: MediaMaxWidth) => {
   switch (width) {
     case "sm":
       return "25%";
@@ -27,6 +19,13 @@ const setMediaWidth = (width: MediaMaxWidth) => {
   }
 };
 
+const useStyles = makeStyles(() => ({
+  root: (props: { mediaPlacement: string; maxWidth: MediaMaxWidth }) => ({
+    order: parseInt(props.mediaPlacement) || 0,
+    maxWidth: convertWidth(props.maxWidth),
+  }),
+}));
+
 function CardMediaPlaceholder<C extends React.ElementType>(
   props: CardMediaPlaceholderProps & CardMediaProps<C, { component: C }>
 ) {
@@ -35,11 +34,10 @@ function CardMediaPlaceholder<C extends React.ElementType>(
     image,
     maxWidth = "md",
     position,
-    style,
     ...restProps
   } = props;
   const mediaPlacement = position === "last" ? "1" : "0";
-  const classes = useStyles({ mediaPlacement });
+  const classes = useStyles({ mediaPlacement, maxWidth });
 
   return (
     <CardMedia
@@ -49,11 +47,6 @@ function CardMediaPlaceholder<C extends React.ElementType>(
           ? (require("../assets/images/placeholder.svg") as string)
           : image
       }
-      style={{
-        maxWidth: setMediaWidth(maxWidth),
-        minWidth: 150,
-        ...style,
-      }}
       {...restProps}
     />
   );
