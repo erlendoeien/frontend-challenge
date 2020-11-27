@@ -1,13 +1,8 @@
-import {
-  Box,
-  Button,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, CardActions, Typography } from "@material-ui/core";
 import React, { FC } from "react";
-import { IconDataProperties } from "../types";
-import CardMediaPlaceholder from "./CardMediaPlaceholder";
+import { IconDataProperties } from "../../types";
+import ContentLayout from "../CardComponents/ContentLayout";
+import CardMediaPlaceholder from "../CardComponents/CardMediaPlaceholder";
 import MediaCard from "./MediaCard";
 
 const IconCard: FC<IconDataProperties> = ({
@@ -30,12 +25,12 @@ const IconCard: FC<IconDataProperties> = ({
         }}
       ></CardMediaPlaceholder>
       <Box style={{ display: "flex", flexDirection: "column" }}>
-        <CardContent
+        <ContentLayout
+          flexDirection="column"
           style={{
-            display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
             flex: 1,
+            flexWrap: "wrap",
           }}
         >
           <Typography variant="h4" color="textPrimary">
@@ -44,7 +39,7 @@ const IconCard: FC<IconDataProperties> = ({
           <Typography variant="subtitle1" color="textSecondary">
             {description}
           </Typography>
-        </CardContent>
+        </ContentLayout>
         <CardActions
           style={{
             marginTop: "auto",

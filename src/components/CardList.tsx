@@ -1,9 +1,7 @@
 import { List, ListProps } from "@material-ui/core";
 import React, { FC } from "react";
 import { IconDataProperties } from "../types";
-import CardMediaPlaceholder from "./CardMediaPlaceholder";
-import IconCard from "./IconCard";
-import MediaCard from "./MediaCard";
+import IconCard from "./Cards/IconCard";
 
 interface CardListProps extends ListProps {
   data: any[];

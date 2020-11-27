@@ -1,6 +1,6 @@
-import { Box, CardMedia, CardMediaProps, makeStyles } from "@material-ui/core";
+import { CardMedia, CardMediaProps, makeStyles } from "@material-ui/core";
 import React from "react";
-import { MediaMaxWidth } from "./types";
+import { MediaMaxWidth } from "../types";
 
 interface CardMediaPlaceholderProps {
   isLoading?: boolean;
@@ -44,7 +44,7 @@ function CardMediaPlaceholder<C extends React.ElementType>(
       classes={{ root: classes.root }}
       src={
         isLoading
-          ? (require("../assets/images/placeholder.svg") as string)
+          ? (require("../../assets/images/placeholder.svg") as string)
           : image
       }
       {...restProps}
