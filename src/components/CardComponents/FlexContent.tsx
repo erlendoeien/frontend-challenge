@@ -15,10 +15,16 @@ const useStyles = makeStyles(() => ({
 
 export default function FlexContent<C extends React.ElementType>({
   flexDirection,
+  classes,
   ...props
 }: FlexContentProps & CardContentProps<C, { component?: C }>) {
-  const classes = useStyles({
+  const defaultClasses = useStyles({
     flexDirection: flexDirection || "column",
   });
-  return <CardContent classes={{ root: classes.root }} {...props} />;
+  return (
+    <CardContent
+      classes={{ root: defaultClasses.root, ...classes }}
+      {...props}
+    />
+  );
 }

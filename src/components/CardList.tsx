@@ -1,7 +1,7 @@
-import { CardProps, List, ListProps } from "@material-ui/core";
+import { List, ListProps } from "@material-ui/core";
 import React, { FC } from "react";
 import { IconDataProperties } from "../types";
-import IconCard, { IconCardProps } from "./Cards/IconCard";
+import IconCard from "./Cards/IconCard";
 
 interface CardListProps extends ListProps {
   data: any[];
@@ -15,7 +15,12 @@ const CardList: FC<CardListProps> = ({ data, ...props }) => {
   return (
     <List {...props}>
       {data.map((values, index) => (
-        <IconCard key={`card_${index}`} data={values as IconDataProperties} />
+        <IconCard
+          key={`card_${index}`}
+          data={values as IconDataProperties}
+          iconPosition="left"
+          iconSize="sm"
+        />
       ))}
     </List>
   );

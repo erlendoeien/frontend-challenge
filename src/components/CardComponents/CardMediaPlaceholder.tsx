@@ -1,29 +1,42 @@
-import { CardMedia, CardMediaProps, makeStyles } from "@material-ui/core";
+import {
+  CardMedia,
+  CardMediaProps,
+  makeStyles,
+  Theme,
+} from "@material-ui/core";
 import React from "react";
-import { MediaMaxWidth } from "../types";
+import { ItemOrder, MediaMaxWidth } from "../types";
 
 interface CardMediaPlaceholderProps {
   isLoading?: boolean;
   maxWidth?: MediaMaxWidth;
-  position?: "first" | "last";
+  position?: ItemOrder;
 }
 //TODO: Convert to theme like, as in the tutorial on MUI
 const convertWidth = (width: MediaMaxWidth) => {
   switch (width) {
+    case "xs":
+      return "10%";
     case "sm":
       return "25%";
     case "md":
-      return "50%";
+      return "40%";
     case "lg":
+      return "50%";
+    case "xl":
       return "75%";
   }
 };
 
-const useStyles = makeStyles(() => ({
-  root: (props: { mediaPlacement: string; maxWidth: MediaMaxWidth }) => ({
+const useStyles = makeStyles((theme: Theme) => ({
+  root: (props: {
+    mediaPlacement: string;
+    maxWidth: ReturnType<typeof convertWidth>;
+  }) => ({
     order: parseInt(props.mediaPlacement) || 0,
-    maxWidth: convertWidth(props.maxWidth),
+    maxWidth: props.maxWidth,
     minWidth: 100,
+    paddingBlock: theme.spacing(2),
   }),
 }));
 
@@ -35,14 +48,18 @@ function CardMediaPlaceholder<C extends React.ElementType>(
     image,
     maxWidth = "md",
     position,
+    classes,
     ...restProps
   } = props;
   const mediaPlacement = position === "last" ? "1" : "0";
-  const classes = useStyles({ mediaPlacement, maxWidth });
+  const defaultClasses = useStyles({
+    mediaPlacement,
+    maxWidth: convertWidth(maxWidth),
+  });
 
   return (
     <CardMedia
-      classes={{ root: classes.root }}
+      classes={{ root: defaultClasses.root, ...classes }}
       image={
         isLoading
           ? (require("../../assets/images/placeholder.svg") as string)

@@ -1,50 +1,60 @@
-import { Box, CardActions, CardProps, Typography } from "@material-ui/core";
+import {
+  Box,
+  CardActions,
+  CardProps,
+  makeStyles,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
 import React, { FC } from "react";
 import { IconDataProperties } from "../../types";
 import FlexContent from "../CardComponents/FlexContent";
 import CardMediaPlaceholder from "../CardComponents/CardMediaPlaceholder";
 import FlexCard from "../CardComponents/FlexCard";
-import { FlexDirection, MediaMaxWidth } from "../types";
+import { FlexDirection, MediaMaxWidth, UIPosition } from "../types";
 import DisableOnClickButton from "../DisableOnClickButton";
+import { positionToFlex } from "../../utils/positionToFlex";
+import { mobileSize } from "../../constants";
 
-type Position = "top" | "bottom" | "left" | "right";
 export interface IconCardProps extends CardProps {
   data: IconDataProperties;
-  iconPosition?: Position;
+  iconPosition?: UIPosition;
   iconSize?: MediaMaxWidth;
 }
 
-const positionToFlex = (position: Position) => {
-  let cardFlexDirection: FlexDirection = "column";
-  let positionOrder: "first" | "last" = "first";
-  switch (position) {
-    case "left":
-      positionOrder = "last";
-      cardFlexDirection = "row";
-      break;
-    case "right":
-      positionOrder = "last";
-      cardFlexDirection = "row";
-      break;
-    case "bottom":
-      cardFlexDirection = "column";
-      positionOrder = "last";
-      break;
-    default:
-      positionOrder = "first";
-      cardFlexDirection = "column";
-  }
-  return { cardFlexDirection, positionOrder };
-};
+interface StyleProps {
+  cardFlexDirection: FlexDirection;
+  isMobile: boolean;
+}
+
+const useStyles = makeStyles(() => ({
+  content: {
+    justifyContent: "center",
+    flex: 1,
+    flexWrap: "wrap",
+  },
+  media: ({ cardFlexDirection, isMobile }: StyleProps) => ({
+    margin: cardFlexDirection === "column" || isMobile ? "auto" : "5%",
+  }),
+  actions: { marginTop: "auto", justifyContent: "center", minWidth: 100 },
+  cardContentWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+  },
+}));
 
 const IconCard: FC<IconCardProps> = ({
   data: { description, link, icon, name },
   iconPosition = "top",
-  iconSize = "sm",
+  iconSize = "xs",
 }) => {
+  const isMobile = useMediaQuery(`(max-width:${mobileSize}px)`);
   const { cardFlexDirection, positionOrder } = positionToFlex(iconPosition);
+  const classes = useStyles({ cardFlexDirection, isMobile });
+
   return (
-    <FlexCard flexDirection={cardFlexDirection} style={{ margin: 20 }}>
+    <FlexCard flexDirection={cardFlexDirection}>
       <CardMediaPlaceholder
         title={name}
         image={icon}
@@ -52,32 +62,18 @@ const IconCard: FC<IconCardProps> = ({
         isLoading={false}
         maxWidth={iconSize}
         position={positionOrder}
-        style={{
-          margin: "auto",
-        }}
+        classes={{ media: classes.media }}
       />
-      <Box style={{ display: "flex", flexDirection: "column" }}>
-        <FlexContent
-          flexDirection="column"
-          style={{
-            justifyContent: "center",
-            flex: 1,
-            flexWrap: "wrap",
-          }}
-        >
-          <Typography variant="h4" color="textPrimary">
+      <Box className={classes.cardContentWrapper}>
+        <FlexContent flexDirection="column" classes={{ root: classes.content }}>
+          <Typography gutterBottom variant="h4" color="textPrimary">
             {name}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             {description}
           </Typography>
         </FlexContent>
-        <CardActions
-          style={{
-            marginTop: "auto",
-            justifyContent: "center",
-          }}
-        >
+        <CardActions classes={{ root: classes.actions }}>
           <DisableOnClickButton href={link}>See more</DisableOnClickButton>
         </CardActions>
       </Box>
