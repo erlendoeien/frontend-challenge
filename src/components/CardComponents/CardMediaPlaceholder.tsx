@@ -23,11 +23,12 @@ const useStyles = makeStyles(() => ({
   root: (props: { mediaPlacement: string; maxWidth: MediaMaxWidth }) => ({
     order: parseInt(props.mediaPlacement) || 0,
     maxWidth: convertWidth(props.maxWidth),
+    minWidth: 100,
   }),
 }));
 
 function CardMediaPlaceholder<C extends React.ElementType>(
-  props: CardMediaPlaceholderProps & CardMediaProps<C, { component: C }>
+  props: CardMediaPlaceholderProps & CardMediaProps<C, { component?: C }>
 ) {
   const {
     isLoading = true,
@@ -42,7 +43,7 @@ function CardMediaPlaceholder<C extends React.ElementType>(
   return (
     <CardMedia
       classes={{ root: classes.root }}
-      src={
+      image={
         isLoading
           ? (require("../../assets/images/placeholder.svg") as string)
           : image

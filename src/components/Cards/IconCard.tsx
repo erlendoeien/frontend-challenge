@@ -1,31 +1,63 @@
-import { Box, Button, CardActions, Typography } from "@material-ui/core";
+import { Box, CardActions, CardProps, Typography } from "@material-ui/core";
 import React, { FC } from "react";
 import { IconDataProperties } from "../../types";
-import ContentLayout from "../CardComponents/ContentLayout";
+import FlexContent from "../CardComponents/FlexContent";
 import CardMediaPlaceholder from "../CardComponents/CardMediaPlaceholder";
-import MediaCard from "./MediaCard";
+import FlexCard from "../CardComponents/FlexCard";
+import { FlexDirection, MediaMaxWidth } from "../types";
+import DisableOnClickButton from "../DisableOnClickButton";
 
-const IconCard: FC<IconDataProperties> = ({
-  name,
-  icon,
-  description,
-  link,
+type Position = "top" | "bottom" | "left" | "right";
+export interface IconCardProps extends CardProps {
+  data: IconDataProperties;
+  iconPosition?: Position;
+  iconSize?: MediaMaxWidth;
+}
+
+const positionToFlex = (position: Position) => {
+  let cardFlexDirection: FlexDirection = "column";
+  let positionOrder: "first" | "last" = "first";
+  switch (position) {
+    case "left":
+      positionOrder = "last";
+      cardFlexDirection = "row";
+      break;
+    case "right":
+      positionOrder = "last";
+      cardFlexDirection = "row";
+      break;
+    case "bottom":
+      cardFlexDirection = "column";
+      positionOrder = "last";
+      break;
+    default:
+      positionOrder = "first";
+      cardFlexDirection = "column";
+  }
+  return { cardFlexDirection, positionOrder };
+};
+
+const IconCard: FC<IconCardProps> = ({
+  data: { description, link, icon, name },
+  iconPosition = "top",
+  iconSize = "sm",
 }) => {
+  const { cardFlexDirection, positionOrder } = positionToFlex(iconPosition);
   return (
-    <MediaCard flexDirection="row" style={{ margin: 20 }}>
+    <FlexCard flexDirection={cardFlexDirection} style={{ margin: 20 }}>
       <CardMediaPlaceholder
         title={name}
         image={icon}
         component="img"
         isLoading={false}
-        maxWidth="md"
-        position="first"
+        maxWidth={iconSize}
+        position={positionOrder}
         style={{
           margin: "auto",
         }}
-      ></CardMediaPlaceholder>
+      />
       <Box style={{ display: "flex", flexDirection: "column" }}>
-        <ContentLayout
+        <FlexContent
           flexDirection="column"
           style={{
             justifyContent: "center",
@@ -39,17 +71,17 @@ const IconCard: FC<IconDataProperties> = ({
           <Typography variant="subtitle1" color="textSecondary">
             {description}
           </Typography>
-        </ContentLayout>
+        </FlexContent>
         <CardActions
           style={{
             marginTop: "auto",
             justifyContent: "center",
           }}
         >
-          <Button href={link}>See more</Button>
+          <DisableOnClickButton href={link}>See more</DisableOnClickButton>
         </CardActions>
       </Box>
-    </MediaCard>
+    </FlexCard>
   );
 };
 
