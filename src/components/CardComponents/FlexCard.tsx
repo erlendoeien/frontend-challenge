@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { mobileSize } from "../../constants";
 import { FlexDirection } from "../types";
 
-interface MediaCardProps extends CardProps {
+interface FlexCardProps extends CardProps {
   flexDirection?: FlexDirection;
 }
 
@@ -14,13 +14,16 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-const MediaCard: FC<MediaCardProps> = ({ flexDirection, ...props }) => {
+const FlexCard: FC<FlexCardProps> = ({
+  flexDirection = "column",
+  ...props
+}) => {
   const isMobile = useMediaQuery(`(max-width:${mobileSize}px)`);
   const classes = useStyles({
-    flexDirection: isMobile ? "column" : flexDirection || "column",
+    flexDirection: isMobile ? "column" : flexDirection,
   });
 
   return <Card classes={{ root: classes.root }} {...props} />;
 };
 
-export default MediaCard;
+export default FlexCard;

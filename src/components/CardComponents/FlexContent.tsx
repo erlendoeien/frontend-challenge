@@ -2,7 +2,7 @@ import { CardContent, CardContentProps, makeStyles } from "@material-ui/core";
 import React from "react";
 import { FlexDirection } from "../types";
 
-interface ContentLayoutProps {
+interface FlexContentProps {
   flexDirection?: FlexDirection;
 }
 
@@ -13,10 +13,10 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-export default function ContentLayout<C extends React.ElementType>({
+export default function FlexContent<C extends React.ElementType>({
   flexDirection,
   ...props
-}: ContentLayoutProps & CardContentProps<C, { component?: C }>) {
+}: FlexContentProps & CardContentProps<C, { component?: C }>) {
   const classes = useStyles({
     flexDirection: flexDirection || "column",
   });
