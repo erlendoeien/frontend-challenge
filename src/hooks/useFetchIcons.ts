@@ -9,7 +9,7 @@ import { IconData } from "../types";
 const useFetchIcons = () => {
   const [data, setData] = useState<IconData>({});
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({});
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +20,8 @@ const useFetchIcons = () => {
         );
         setData(data);
       } catch (err) {
-        setError(err);
+        if (err instanceof Error) setError(err);
+        else throw err;
       } finally {
         setLoading(false);
       }

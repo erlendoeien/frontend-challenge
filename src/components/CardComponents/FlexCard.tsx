@@ -9,7 +9,7 @@ import React, { FC } from "react";
 import { mobileSize } from "../../constants";
 import { FlexDirection } from "../types";
 
-interface FlexCardProps extends CardProps {
+export interface FlexCardProps extends CardProps {
   flexDirection?: FlexDirection;
 }
 

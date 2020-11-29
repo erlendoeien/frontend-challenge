@@ -1,6 +1,6 @@
-import { CardProps, makeStyles, Typography } from "@material-ui/core";
+import { CardProps, makeStyles, Theme, Typography } from "@material-ui/core";
 import React, { FC } from "react";
-import CardMediaPlaceholder from "../CardComponents/CardMediaPlaceholder";
+import FlexCardMedia from "../CardComponents/FlexCardMedia";
 import FlexCard from "../CardComponents/FlexCard";
 import FlexContent from "../CardComponents/FlexContent";
 import { FlexDirection, ItemOrder, MediaMaxWidth } from "../types";
@@ -12,9 +12,13 @@ interface LoadingIconCardProps extends CardProps {
   positionOrder: ItemOrder;
   iconCardClasses: ReturnType<typeof useCardIconStyles>;
   numberOfLines?: number;
+  contentWidth?: number;
 }
 
-const useLoadingStyles = makeStyles(() => ({
+const useLoadingStyles = makeStyles((theme: Theme) => ({
+  loadingMedia: {
+    padding: theme.spacing(2),
+  },
   textLoading: {
     height: "1em",
     backgroundColor: "#CCC",
@@ -22,15 +26,21 @@ const useLoadingStyles = makeStyles(() => ({
   headerLoading: {
     width: "80%",
     backgroundColor: "#BBB",
+    marginBlock: theme.spacing(2),
   },
 }));
 
+/**
+ * Loading card, primarily for IconCards with support for
+ * fill content and setting it's width
+ */
 const LoadingIconCard: FC<LoadingIconCardProps> = ({
   cardFlexDirection,
   iconSize,
   positionOrder,
   iconCardClasses,
   numberOfLines = 3,
+  contentWidth = 100,
   ...props
 }) => {
   const loadingClasses = useLoadingStyles();
@@ -43,12 +53,15 @@ const LoadingIconCard: FC<LoadingIconCardProps> = ({
       }}
       {...props}
     >
-      <CardMediaPlaceholder
+      <FlexCardMedia
         isLoading
         component="img"
         maxWidth={iconSize}
         position={positionOrder}
-        classes={{ media: iconCardClasses.cardMedia }}
+        className={loadingClasses.loadingMedia}
+        classes={{
+          media: iconCardClasses.cardMedia,
+        }}
       />
       <FlexContent
         flexDirection="column"
@@ -66,7 +79,8 @@ const LoadingIconCard: FC<LoadingIconCardProps> = ({
             color="textSecondary"
             gutterBottom
             className={loadingClasses.textLoading}
-            style={{ width: `${20 + Math.random() * 40}%` }}
+            // Createstyles will only generate single random weight
+            style={{ width: contentWidth + Math.random() * contentWidth }}
           />
         ))}
       </FlexContent>

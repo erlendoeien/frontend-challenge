@@ -8,7 +8,7 @@ interface CardListProps extends ListProps {
 }
 
 const CardList: FC<CardListProps> = ({ data, ...props }) => {
-  if (data.length == 0 || data == null) return null;
+  if (data.length === 0 || data == null) return null;
   //TODO: Take in ListItem, don't actually need this component
   // Just use List directly in app
 

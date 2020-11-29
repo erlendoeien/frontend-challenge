@@ -8,7 +8,7 @@ import {
 import React, { FC } from "react";
 import { IconDataProperties } from "../../types";
 import FlexContent from "../CardComponents/FlexContent";
-import CardMediaPlaceholder from "../CardComponents/CardMediaPlaceholder";
+import FlexCardMedia from "../CardComponents/FlexCardMedia";
 import FlexCard from "../CardComponents/FlexCard";
 import { MediaMaxWidth, UIPosition } from "../types";
 import DisableOnClickButton from "../DisableOnClickButton";
@@ -51,7 +51,7 @@ const IconCard: FC<IconCardProps> = ({
 
   return (
     <FlexCard flexDirection={cardFlexDirection} {...props}>
-      <CardMediaPlaceholder
+      <FlexCardMedia
         title={name}
         image={icon}
         component="img"
