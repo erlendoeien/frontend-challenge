@@ -58,6 +58,7 @@ const LoadingIconCard: FC<LoadingIconCardProps> = ({
         component="img"
         maxWidth={iconSize}
         position={positionOrder}
+        isLoading
         className={loadingClasses.loadingMedia}
         classes={{
           media: iconCardClasses.cardMedia,

@@ -6,6 +6,7 @@ import { ItemOrder, MediaMaxWidth } from "../types";
 interface FlexCardMediaProps {
   maxWidth?: MediaMaxWidth;
   position?: ItemOrder;
+  isLoading?: boolean;
 }
 //TODO: Convert to theme like, as in the tutorial on MUI
 const convertWidth = (width: MediaMaxWidth) => {
@@ -41,7 +42,14 @@ const useStyles = makeStyles(() => ({
 function FlexCardMedia<C extends React.ElementType>(
   props: FlexCardMediaProps & CardMediaProps<C, { component?: C }>
 ) {
-  const { image, maxWidth = "md", position, classes, ...restProps } = props;
+  const {
+    image,
+    maxWidth = "md",
+    position,
+    classes,
+    isLoading,
+    ...restProps
+  } = props;
   const mediaPlacement = position === "last" ? "1" : "0";
   const defaultClasses = useStyles({
     mediaPlacement,
@@ -51,7 +59,11 @@ function FlexCardMedia<C extends React.ElementType>(
   return (
     <CardMedia
       classes={{ root: defaultClasses.root, ...classes }}
-      image={image}
+      image={
+        isLoading
+          ? (require("../../assets/images/placeholder.svg") as string)
+          : image
+      }
       {...restProps}
     />
   );
