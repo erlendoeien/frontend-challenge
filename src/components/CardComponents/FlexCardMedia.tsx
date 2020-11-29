@@ -2,7 +2,7 @@ import { CardMedia, CardMediaProps, makeStyles } from "@material-ui/core";
 import React from "react";
 import { ItemOrder, MediaMaxWidth } from "../types";
 
-interface CardMediaPlaceholderProps {
+interface FlexCardMediaProps {
   isLoading?: boolean;
   maxWidth?: MediaMaxWidth;
   position?: ItemOrder;
@@ -34,8 +34,12 @@ const useStyles = makeStyles(() => ({
   }),
 }));
 
-function CardMediaPlaceholder<C extends React.ElementType>(
-  props: CardMediaPlaceholderProps & CardMediaProps<C, { component?: C }>
+/**
+ * Extends card media to be ordered in flex-container
+ * Makes media's placement dependent on siblings non-default order values
+ */
+function FlexCardMedia<C extends React.ElementType>(
+  props: FlexCardMediaProps & CardMediaProps<C, { component?: C }>
 ) {
   const {
     isLoading,
@@ -64,4 +68,4 @@ function CardMediaPlaceholder<C extends React.ElementType>(
   );
 }
 
-export default CardMediaPlaceholder;
+export default FlexCardMedia;
