@@ -14,10 +14,16 @@ interface FlexCardProps extends CardProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: (props: { flexDirection: FlexDirection }) => ({
+  root: ({
+    flexDirection,
+    isMobile,
+  }: {
+    flexDirection: FlexDirection;
+    isMobile: boolean;
+  }) => ({
     display: "flex",
-    flexDirection: props.flexDirection,
-    margin: theme.spacing(4),
+    flexDirection: isMobile ? "column" : flexDirection,
+    margin: isMobile ? theme.spacing(1) : theme.spacing(4),
   }),
 }));
 
@@ -28,7 +34,8 @@ const FlexCard: FC<FlexCardProps> = ({
 }) => {
   const isMobile = useMediaQuery(`(max-width:${mobileSize}px)`);
   const defaultClasses = useStyles({
-    flexDirection: isMobile ? "column" : flexDirection,
+    flexDirection,
+    isMobile,
   });
 
   return (

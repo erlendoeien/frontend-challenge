@@ -1,9 +1,4 @@
-import {
-  CardMedia,
-  CardMediaProps,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
+import { CardMedia, CardMediaProps, makeStyles } from "@material-ui/core";
 import React from "react";
 import { ItemOrder, MediaMaxWidth } from "../types";
 
@@ -28,7 +23,7 @@ const convertWidth = (width: MediaMaxWidth) => {
   }
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   root: (props: {
     mediaPlacement: string;
     maxWidth: ReturnType<typeof convertWidth>;
@@ -36,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     order: parseInt(props.mediaPlacement) || 0,
     maxWidth: props.maxWidth,
     minWidth: 100,
-    paddingBlock: theme.spacing(2),
   }),
 }));
 
@@ -44,7 +38,7 @@ function CardMediaPlaceholder<C extends React.ElementType>(
   props: CardMediaPlaceholderProps & CardMediaProps<C, { component?: C }>
 ) {
   const {
-    isLoading = true,
+    isLoading,
     image,
     maxWidth = "md",
     position,
