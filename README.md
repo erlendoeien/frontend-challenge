@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Setup
 
 1. `$ npm install`
-   **Production**
-2. `$ npm run build`
-   **Development**
-3. `$npm start`
+
+   **Production**: &nbsp; `$ npm run build`
+
+   **Development**: &nbsp; `$ npm start`
