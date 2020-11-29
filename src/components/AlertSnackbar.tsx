@@ -1,5 +1,6 @@
 import { Snackbar, SnackbarProps } from "@material-ui/core";
 import { Alert, AlertProps } from "@material-ui/lab";
+// eslint-disable-next-line
 import React, { FC } from "react";
 
 interface AlertSnackBarProps

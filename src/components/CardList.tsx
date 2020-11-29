@@ -1,16 +1,18 @@
-import { List, ListProps } from "@material-ui/core";
+import { BoxProps, Box } from "@material-ui/core";
+// eslint-disable-next-line
 import React, { FC } from "react";
 import { IconDataProperties } from "../types";
 import IconCard from "./IconCard";
 import { MediaMaxWidth, UIPosition } from "./types";
 
-interface CardListProps extends ListProps {
+interface CardListProps extends BoxProps {
   data: any[];
   loading?: boolean;
   iconPosition: UIPosition;
   iconSize: MediaMaxWidth;
 }
 
+// Card list container for demo purposes mainly
 const CardList: FC<CardListProps> = ({
   data,
   loading,
@@ -21,7 +23,7 @@ const CardList: FC<CardListProps> = ({
   // Load fixed amount of placeholders when loading
   if (loading)
     return (
-      <List {...props}>
+      <Box {...props}>
         {[...new Array(3)].map((_, index) => (
           <IconCard
             key={`card_${index}`}
@@ -31,15 +33,13 @@ const CardList: FC<CardListProps> = ({
             loading
           />
         ))}
-      </List>
+      </Box>
     );
 
   if (data.length === 0 || data == null) return null;
-  //TODO: Take in ListItem, don't actually need this component
-  // Just use List directly in app
 
   return (
-    <List {...props}>
+    <Box {...props}>
       {data.map((values, index) => (
         <IconCard
           key={`card_${index}`}
@@ -48,7 +48,7 @@ const CardList: FC<CardListProps> = ({
           iconSize={iconSize}
         />
       ))}
-    </List>
+    </Box>
   );
 };
 

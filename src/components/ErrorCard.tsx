@@ -6,6 +6,7 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
+// eslint-disable-next-line
 import React, { FC } from "react";
 import FlexCard, { FlexCardProps } from "./CardComponents/FlexCard";
 import FlexContent from "./CardComponents/FlexContent";

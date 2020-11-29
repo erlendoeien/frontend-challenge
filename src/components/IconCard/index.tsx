@@ -5,6 +5,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
+// eslint-disable-next-line
 import React, { FC } from "react";
 import { IconDataProperties } from "../../types";
 import FlexContent from "../CardComponents/FlexContent";

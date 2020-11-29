@@ -1,4 +1,5 @@
 import { CardContent, CardContentProps, makeStyles } from "@material-ui/core";
+// eslint-disable-next-line
 import React from "react";
 import { FlexDirection } from "../types";
 

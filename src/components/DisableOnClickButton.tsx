@@ -1,4 +1,5 @@
 import { Button, ButtonProps } from "@material-ui/core";
+// eslint-disable-next-line
 import React, { useState } from "react";
 
 function DisableOnClickButton<C extends React.ElementType>({

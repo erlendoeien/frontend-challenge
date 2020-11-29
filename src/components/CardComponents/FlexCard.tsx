@@ -5,6 +5,7 @@ import {
   Theme,
   useMediaQuery,
 } from "@material-ui/core";
+// eslint-disable-next-line
 import React, { FC } from "react";
 import { mobileSize } from "../../constants";
 import { FlexDirection } from "../types";
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   }),
 }));
 
+/**
+ * Flexbox wrapper with default to column-direction on mobile
+ */
 const FlexCard: FC<FlexCardProps> = ({
   flexDirection = "column",
   classes,
