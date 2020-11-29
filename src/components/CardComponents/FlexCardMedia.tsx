@@ -8,7 +8,6 @@ interface FlexCardMediaProps {
   position?: ItemOrder;
   isLoading?: boolean;
 }
-//TODO: Convert to theme like, as in the tutorial on MUI
 const convertWidth = (width: MediaMaxWidth) => {
   switch (width) {
     case "xs":
