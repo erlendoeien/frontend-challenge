@@ -50,7 +50,11 @@ const IconCard: FC<IconCardProps> = ({
     );
 
   return (
-    <FlexCard flexDirection={cardFlexDirection} {...props}>
+    <FlexCard
+      flexDirection={cardFlexDirection}
+      className={classes.cardHover}
+      {...props}
+    >
       <FlexCardMedia
         title={name}
         image={icon}

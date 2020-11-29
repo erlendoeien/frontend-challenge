@@ -10,6 +10,15 @@ export interface IconCardStyleProps {
  * Styling for IconCard, and the LoadingIconCard
  */
 const useCardIconStyles = makeStyles((theme: Theme) => ({
+  cardHover: {
+    transition: "padding 0.2s ease-in-out",
+    "&:hover": {
+      borderColor: theme.palette.grey[700],
+      borderStyle: "solid",
+      borderWidth: 1,
+      paddingBlock: theme.spacing(2),
+    },
+  },
   cardContentWrapper: {
     display: "flex",
     flexDirection: "column",
