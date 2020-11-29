@@ -42,6 +42,7 @@ const IconCard: FC<IconCardProps> = ({
 
   if (loading)
     return (
+      // Separate "placeholder" component which mimics the current style of the iconCard
       <LoadingIconCard
         cardFlexDirection={cardFlexDirection}
         iconSize={iconSize}
@@ -64,7 +65,7 @@ const IconCard: FC<IconCardProps> = ({
         position={positionOrder}
         classes={{ media: classes.cardMedia }}
       />
-      {/* Flex wrapper to include buttons in content column */}
+      {/* Flex wrapper to include buttons in content flex-container */}
       <Box className={classes.cardContentWrapper}>
         <FlexContent flexDirection="column" classes={{ root: classes.content }}>
           <Typography gutterBottom variant="h4" color="textPrimary">
