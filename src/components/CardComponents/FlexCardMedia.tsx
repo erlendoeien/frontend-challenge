@@ -3,7 +3,6 @@ import React from "react";
 import { ItemOrder, MediaMaxWidth } from "../types";
 
 interface FlexCardMediaProps {
-  isLoading?: boolean;
   maxWidth?: MediaMaxWidth;
   position?: ItemOrder;
 }
@@ -41,14 +40,7 @@ const useStyles = makeStyles(() => ({
 function FlexCardMedia<C extends React.ElementType>(
   props: FlexCardMediaProps & CardMediaProps<C, { component?: C }>
 ) {
-  const {
-    isLoading,
-    image,
-    maxWidth = "md",
-    position,
-    classes,
-    ...restProps
-  } = props;
+  const { image, maxWidth = "md", position, classes, ...restProps } = props;
   const mediaPlacement = position === "last" ? "1" : "0";
   const defaultClasses = useStyles({
     mediaPlacement,
@@ -58,11 +50,7 @@ function FlexCardMedia<C extends React.ElementType>(
   return (
     <CardMedia
       classes={{ root: defaultClasses.root, ...classes }}
-      image={
-        isLoading
-          ? (require("../../assets/images/placeholder.svg") as string)
-          : image
-      }
+      image={image}
       {...restProps}
     />
   );

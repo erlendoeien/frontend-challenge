@@ -55,11 +55,11 @@ const IconCard: FC<IconCardProps> = ({
         title={name}
         image={icon}
         component="img"
-        isLoading={false}
         maxWidth={iconSize}
         position={positionOrder}
         classes={{ media: classes.cardMedia }}
       />
+      {/* Flex wrapper to include buttons in content column */}
       <Box className={classes.cardContentWrapper}>
         <FlexContent flexDirection="column" classes={{ root: classes.content }}>
           <Typography gutterBottom variant="h4" color="textPrimary">

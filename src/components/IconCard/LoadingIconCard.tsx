@@ -54,7 +54,6 @@ const LoadingIconCard: FC<LoadingIconCardProps> = ({
       {...props}
     >
       <FlexCardMedia
-        isLoading
         component="img"
         maxWidth={iconSize}
         position={positionOrder}

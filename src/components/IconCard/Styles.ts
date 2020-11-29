@@ -7,7 +7,7 @@ export interface IconCardStyleProps {
 }
 
 /**
- * Styling for IconCard
+ * Styling for IconCard, and the LoadingIconCard
  */
 const useCardIconStyles = makeStyles((theme: Theme) => ({
   cardContentWrapper: {
